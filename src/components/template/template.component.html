@@ -1,0 +1,31 @@
+<!--When a normal form is submitted it reloads thepage by making the http request-->
+
+<!--As angular is a single page application it will entirely restarts the server-->
+
+<!--to avoid this angular help to stop the default behaviour.This can be achived by using the template
+driven form or reactive form in angular-->
+
+
+<!--Every validation happens in the template using directives or attributes in the template driven form
+
+disadvantages of template driven forms
+
+    --it is difficult to add controls dynamically at the runtime
+
+    --unit testing is challenging
+ 
+-->
+
+
+<!--ngForm is a directive that makes a form as a template driven form -->
+
+
+
+<form (ngSubmit)="OnFormSubmitted()" #registrationForm="ngForm">
+
+    
+    <input type="text" placeholder="FirstName" name="firstname" required/>
+    
+    
+    <input type="submit">
+</form>

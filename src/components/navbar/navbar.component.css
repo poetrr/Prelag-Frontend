@@ -1,0 +1,91 @@
+/* 
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+.grad-icon {
+    font-size: 2rem;
+    color:black;
+}
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}
+a{
+    text-decoration:none;
+    color:black;
+    font-family: 'Courier New', Courier, monospace;
+}
+#login-button{
+    display: flex;
+    align-items: center;
+    margin-left: 300px;
+    background-color:black;
+    color: white;
+    padding: 10px 20px;
+    border-radius:4px;
+    display:inline-block;
+    font-weight: bold;
+}
+#logout-button{
+    display:flex;
+    align-items: center;
+    margin-left: 200px;
+    background-color:black;
+    color: white;
+    padding: 10px 20px;
+    border-radius:4px;
+    display:inline-block;
+    font-weight: bold;
+
+}
+
+.navbar{
+    background-color: rgb(85, 0, 255);
+    padding:15px 60px;
+    position:fixed;
+    width:100%;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 70px;
+    flex-wrap:wrap;
+}
+#dashboard {
+    color:white;
+    margin-left: auto;
+    font-size: larger;
+    font-weight: bold;
+}
+#profile{
+    color:white;
+    margin-left: auto;
+    font-size: larger;
+    font-weight: bold;
+} */
+.navbar {
+    display: flex;
+    align-items:center;
+    a{
+        text-decoration: none;
+    }
+}

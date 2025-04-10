@@ -1,0 +1,223 @@
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+    <div class="container">
+    <fa-icon [icon]="faGraduationCap" class=" btn btn-primary"></fa-icon>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="#" class="navbar-brand">PreLag</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navmenu"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navmenu" #navmenu>
+        <ul class="navbar-nav ms-auto">
+          
+          <li class="nav-item">
+            <a href="" class="nav-link">SignUp</a>
+          </li>&nbsp;&nbsp;
+          <li class="nav-item">
+            <button class=" btn btn-primary" (click)="logout()">Login</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<section class="bg-dark text-light p-5 p-lg-0 pt-lg-5 text-center text-sm-smart pb-30 mx-50">
+    <div class="container">
+        <div class="d-sm-flex aligh-items-center justify-content-between">
+            <div>
+                <h1>Takes Care Of your <span class="text-warning"> Presence</span> </h1>
+                <p class="lead my-4">
+                    Streamline your attendance management with our powerful, 
+                    user-friendly platform. Say goodbye to manual processes 
+                    and embrace a smarter, more efficient way to track attendance.
+                </p>
+                <button class="btn btn-primary btn-lg">Get Started</button>
+            </div>
+            <img class="img-fluid w-50 " src="showcase.svg" alt=""/>
+        </div>
+    </div>
+</section>
+
+
+<section class="bg-primary text-light p-4">
+    <div class="container">
+      <div class="d-md-flex  align-items-center ">
+        <h3 class="mb-2 mb-md-0 text-dark">For Queries Contact   :     </h3>
+        <h3 class="text-dark mb-2 mb-md-0 ">+918825639190</h3>
+      </div>
+    </div>
+</section>
+
+
+  <footer class="p-5 bg-dark text-white text-center position-relative">
+    <div class="container">
+      <p class="lead"> &copy;Out of passion by siddu</p>
+
+      <a href="#" class="position-absolute bottom-0 end-0 p-5">
+        <i class="bi bi-arrow-up-circle h1"></i>
+      </a>
+    </div>
+  </footer>
+
+<!------Login form-->
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center py-5 bg-light">
+  <div class="row w-100 justify-content-center">
+    
+  <div class="col-9 col-md-2 col-lg-4  mb-4">
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class=" mt-4 bg-dark p-4 rounded-3 shadow">
+    <div class="mb-3 text-center">
+      <p  class="text-light">Login</p>
+      <div class="px-4">
+        <input 
+          type="email" 
+          class="form-control " 
+          name="email" 
+          placeholder="Email"
+          [(ngModel)]="loginData.email" 
+          required
+          #email="ngModel"
+          [class.is-invalid]="email.invalid && email.touched">
+      </div>
+        <div class="invalid-feedback" *ngIf="email.invalid && email.touched">
+          Email is required
+        </div>
+    </div>
+  
+    <div class="mb-3">
+      <div class="px-4">
+          <input 
+            type="password" 
+            class="form-control" 
+            name="password" 
+            placeholder="Password"
+            [(ngModel)]="loginData.password" 
+            required
+            #password="ngModel"
+            [class.is-invalid]="password.invalid && password.touched">
+          
+          <div class="invalid-feedback" *ngIf="password.invalid && password.touched">
+            Password is required
+          </div>
+      </div>
+    </div>
+    <div class="px-4">
+    <button 
+      type="submit" 
+      class="btn btn-primary"
+      [disabled]="loginForm.invalid">
+      Login
+    </button> &nbsp;&nbsp;<a href="#" class="text-light" id="forgetpassword" > ? Forget Password</a></div>
+      </form>
+  </div>
+<!--Register form-->
+  <div class="col-10 col-md-2 col-lg-4 ">
+      <form #registerForm="ngForm" (ngSubmit)="onRegisterSubmit(registerForm)" class=" mt-4 bg-dark p-4 rounded-3 shadow">
+    <div class="mb-3 text-center">
+      <p  class="text-light">Register</p>
+
+    
+      <div class="mb-3">
+        <div class="px-4">
+        <input 
+          type="text" 
+          class="form-control" 
+          name="username" 
+          placeholder="username"
+          [(ngModel)]="registerData.username" 
+          required
+          #username="ngModel"
+          [class.is-invalid]="username.invalid && username.touched">
+        <div class="invalid-feedback" *ngIf="username.invalid && username.touched">
+          username is required
+        </div></div>
+      </div>
+      <div class="px-4">
+          <input 
+            type="email" 
+            class="form-control " 
+            name="email" 
+            placeholder="Email"
+            [(ngModel)]="loginData.email" 
+            required
+            #email="ngModel"
+            [class.is-invalid]="email.invalid && email.touched">
+          <div class="invalid-feedback" *ngIf="email.invalid && email.touched">
+            Email is required
+          </div>
+      </div>
+    </div>
+  
+    <div class="mb-3">
+      <div class="px-4">
+          <input 
+            type="password" 
+            class="form-control" 
+            name="password" 
+            placeholder="Password"
+            [(ngModel)]="loginData.password" 
+            required
+            #password="ngModel"
+            [class.is-invalid]="password.invalid && password.touched">
+          <div class="invalid-feedback" *ngIf="password.invalid && password.touched">
+            Password is required
+          </div>
+      </div>
+    </div>
+    <div class="mb-3">
+    <div class="d-flex justify-content-center">
+      <button 
+        type="submit" 
+        class="btn btn-primary"
+        [disabled]="loginForm.invalid">
+        Register
+      </button> &nbsp;&nbsp;</div>
+    </div>
+      </form>
+  </div>
+<!--otp form-->
+
+  <div class="col-9 col-md-2 col-lg-4  mb-4">
+    <form #loginForm="ngForm" (ngSubmit)="onOtpSubmit(loginForm)" class=" mt-4 bg-dark p-4 rounded-3 shadow">
+    <div class="mb-3 text-center">
+    <p  class="text-light">Otp Validation</p>
+    <div class="px-4">
+      <input 
+        type="text" 
+        class="form-control " 
+        name="otp" 
+        placeholder="Enter otp"
+        [(ngModel)]="otpData.otp" 
+        required
+        #otp="ngModel"
+        [class.is-invalid]="otp.invalid && otp.touched">
+    
+      <div class="invalid-feedback" *ngIf="otp.invalid && otp.touched">
+      Otp is required
+      </div>
+
+      <!-- Add Timer Display -->
+    <div class="text-light mt-2" *ngIf="timeLeft">
+      Time remaining: {{timeLeft}} seconds
+    </div>
+    <div class="text-danger mt-2" *ngIf="timeLeft === 0">
+      OTP expired! <button class="btn btn-link text-primary" (click)="resendOTP()">Resend OTP</button>
+    </div>
+    </div>
+  </div>
+
+
+
+  <div class="px-4 d-flex justify-content-center">
+  <button 
+    type="submit" 
+    class="btn btn-primary"
+    [disabled]="otp.invalid || isSubmitDisabled || timeLeft==0">
+    Submit
+  </button> &nbsp;&nbsp;<a href="#" class="text-light" id="forgetpassword" > </a></div>
+    </form>
+  </div>
+  </div>
+</div>
