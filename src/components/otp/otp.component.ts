@@ -1,60 +1,63 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-otp',
-  imports: [FormsModule,CommonModule],
   templateUrl: './otp.component.html',
+  imports:[CommonModule,FormsModule],
   styleUrl: './otp.component.css'
 })
+export class OtpComponent implements OnInit {
+  @ViewChild('otpForm') otpForm!: NgForm;
 
-export class OtpComponent implements OnInit, OnDestroy {
-  isSubmitDisabled: boolean = false; // Tracks if the submit button is disabled
-  timeLeft: number = 30; // Timer duration in seconds
-  private timerInterval: any;
-  otpData={
-    otp:''
-  }
-  ngOnInit() {
-    this.startTimer();
-  }
+  registerData = {
+    email: '',
+    password: '',
+    username: '',
+    otp: 0
+  };
 
-  onOtpSubmit(form: NgForm) {
-    if (form.valid && !this.isSubmitDisabled && this.timeLeft > 0) {
-      this.isSubmitDisabled = true; // Disable the button after submission
-      console.log('OTP submitted:', this.otpData.otp);
-      // Add your OTP validation logic here
+  otpError = false;
+  serverError = false;
+
+  constructor(private userService: UserService, private router: Router) {}
+
+  ngOnInit(): void {
+    const data = this.userService.getRegisterData();
+    console.log("data to be printer",data);
+    if (data) {
+      this.registerData.email = data.email;
+      this.registerData.password = data.password;
+      this.registerData.username = data.username;
+    } else {
+      this.router.navigate(['/register']); // fallback if data not found
     }
   }
 
-  startTimer() {
-    this.timeLeft = 30; // Reset the timer
-    this.isSubmitDisabled = false; // Enable the submit button when the timer starts
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval); // Clear any existing timer
-    }
-    this.timerInterval = setInterval(() => {
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-      } else {
-        clearInterval(this.timerInterval); // Stop the timer when it reaches 0
-        this.isSubmitDisabled = false; // Enable the submit button when the timer ends
+  validateOtpFunction() {
+    this.otpError = false;
+    this.serverError = false;
+  
+    this.userService.validateOtp(this.registerData).subscribe({
+      next: (message: string) => {
+        console.log('Server Response:', message);
+  
+        if (message === 'OTP validated successfully') {
+          this.router.navigate(['/success']); // navigate or show success
+        } else if (message === 'Invalid OTP.' || message === 'OTP expired.' || message === 'No OTP found for this email.') {
+          this.otpError = true;
+        } else {
+          this.serverError = true;
+        }
+      },
+      error: (error) => {
+        console.error('Unexpected Server Error:', error);
+        this.serverError = true;
       }
-    }, 1000);
+    });
   }
-
-  resendOTP() {
-    this.startTimer(); // Restart the timer
-    this.isSubmitDisabled = false; 
-    // Enable the submit button
-    console.log('OTP resent');
-    // Add your resend OTP logic here
-  }
-
-  ngOnDestroy() {
-    if (this.timerInterval) {
-      clearInterval(this.timerInterval); // Clear the timer when the component is destroyed
-    }
-  }
+  
 }

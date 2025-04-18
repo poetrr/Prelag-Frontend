@@ -1,0 +1,18 @@
+<form  (ngSubmit)="validateOtpFunction()" #otpForm="ngForm">
+    <label>Enter Otp sent to your email</label>
+    <input 
+        name="otp"
+        type="number"
+        required
+        [(ngModel)]="registerData.otp"
+        #userotp="ngModel"/>
+    <br/>
+        <div *ngIf="userotp.invalid && userotp.touched"
+             class="error">otp not entered
+        </div>
+
+        <button type="submit" [disabled]="userotp.invalid">Verify</button>
+
+        <div *ngIf="otpError" class="error">invalid otp</div>
+        <div *ngIf="serverError" class="error">unable to verify otp.Try after some time</div>
+</form>

@@ -1,1 +1,47 @@
-<p>register works!</p>
+
+<form (ngSubmit)="sendOtpFunction()" #registrationForm="ngForm">
+    
+    <input type="username" 
+           placeholder="username" 
+           required 
+           [(ngModel)]="registerData.username" 
+           name="username"
+           #username="ngModel"/>
+
+    <div   *ngIf="username.invalid && username.touched"
+           class="error">username is required</div>
+    <br/>
+    <input type="email" 
+           placeholder="email" 
+           required 
+           email
+           [(ngModel)]="registerData.email" 
+           name="email"
+           #email="ngModel"/>
+           
+    <div *ngIf="email.invalid && email.touched" class="error">
+        <div *ngIf="email.errors?.['required']">Email is required.</div>
+        <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+    </div>
+    <br/>
+    <input 
+           type="password" 
+           placeholder="password" 
+           required 
+           [(ngModel)]="registerData.password" 
+           name="password"
+           minlength="6"
+           #password="ngModel"/>
+
+    <div *ngIf="password.invalid && password.touched" class="error">
+        <div *ngIf="password.errors?.['required']">Password is required</div>
+        <div *ngIf="password.errors?.['minlength']">Password must be atleast 6 characters long.</div>
+
+    </div>
+
+    <br/>
+    <button type="submit" [disabled]="registrationForm.invalid">Register</button>
+
+    <div *ngIf="registrationError"class="error"> Unable to register</div>
+
+</form>

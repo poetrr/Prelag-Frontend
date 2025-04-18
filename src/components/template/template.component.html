@@ -19,13 +19,24 @@ disadvantages of template driven forms
 
 <!--ngForm is a directive that makes a form as a template driven form -->
 
+<!--# is used to create a template reference variable to the form-->
 
+<!-- Every element inside the form is called the controls-->
 
-<form (ngSubmit)="OnFormSubmitted()" #registrationForm="ngForm">
+<!--Every control has its property(name) and value (data entered)-->
+
+<!--ngModel directive is used to tell that the elements are  inside the form and is in the control of the form-->
+
+<!--forms and the form elements have the property(example=touched ,untouched...) and the value    -->
+<div class="p-4">
+<section class="container" [ngClass]="{'form-shadow':registrationForm.touched}">
+<form (ngSubmit)="OnFormSubmitted()" #registrationForm="ngForm" >
 
     
-    <input type="text" placeholder="FirstName" name="firstname" required/>
+    <input type="text" placeholder="FirstName" name="firstname" required  ngModel/>
     
-    
+    <br/>
     <input type="submit">
 </form>
+</section>
+</div>
