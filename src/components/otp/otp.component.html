@@ -11,8 +11,12 @@
              class="error">otp not entered
         </div>
 
-        <button type="submit" [disabled]="userotp.invalid">Verify</button>
-
+        <button type="submit" [disabled]="userotp.invalid || resendEnabled ">Verify</button>
         <div *ngIf="otpError" class="error">invalid otp</div>
         <div *ngIf="serverError" class="error">unable to verify otp.Try after some time</div>
+        <div *ngIf="isTimerRunning">
+            Please wait {{ timer }}s to resend
+          </div>
+        <button type="button" (click)="resendOtpFunction()"  [disabled]="isTimerRunning">ResendOtp</button>
+        
 </form>
