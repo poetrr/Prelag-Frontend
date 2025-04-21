@@ -1,1 +1,39 @@
-<p>login works!</p>
+
+<form (ngSubmit)="login()" #registrationForm="ngForm">
+    
+  
+    <input type="email" 
+           placeholder="email" 
+           required 
+           email
+           [(ngModel)]="loginData.email" 
+           name="email"
+           #email="ngModel"/>
+           
+    <div *ngIf="email.invalid && email.touched" class="error">
+        <div *ngIf="email.errors?.['required']">Email is required.</div>
+        <div *ngIf="email.errors?.['email']">Invalid email format.</div>
+    </div>
+    <br/>
+    <input 
+           type="password" 
+           placeholder="password" 
+           required 
+           [(ngModel)]="loginData.password" 
+           name="password"
+           minlength="6"
+           #password="ngModel"/>
+
+    <div *ngIf="password.invalid && password.touched" class="error">
+        <div *ngIf="password.errors?.['required']">Password is required</div>
+        <div *ngIf="password.errors?.['minlength']">Password must be atleast 6 characters long.</div>
+
+    </div>
+
+    <br/>
+    <button type="submit" [disabled]="registrationForm.invalid">Login</button>
+
+    <div *ngIf="loginError"class="error"> Unable to register</div>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+</form>

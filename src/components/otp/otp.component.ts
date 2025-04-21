@@ -57,7 +57,7 @@ export class OtpComponent implements OnInit {
             return;
           }
         }
-        debugger;
+        
         if (response.message === 'Invalid Otp') {
           this.otpError = true;
         } else if (response.message === 'OTP validated successfully') {

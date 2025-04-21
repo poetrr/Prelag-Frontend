@@ -1,28 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [],
+  imports: [FormsModule,CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent {
 
   constructor(
       private userservice:UserService,
       private router:Router
   ){}
   loginData={
-    email:'sidducit012@gmail.com',
-    password:'siddu@cit012*'
+    email:'',
+    password:''
   }
-
-  ngOnInit():void{
-    console.log('oninit')
-    this.login();
-  }
+  loginError:boolean=false;
+  
 
   login(){
     this.userservice.loginfunction(this.loginData).subscribe({
@@ -36,6 +35,7 @@ export class LoginComponent implements OnInit{
       },
       error:(error)=>{
           console.log(error);
+          this.loginError=true;
       },
       complete:()=>{
         console.log("complete");

@@ -1,1 +1,81 @@
-<p>subjects works!</p>
+
+<!-- Create New Subject Button -->
+<div class="mb-4">
+  <button (click)="toggleCreateForm()"
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">
+    {{ isCreatingSubject ? 'Cancel' : 'Create New Subject' }}
+  </button>
+</div>
+
+<!-- Create Subject Form -->
+<div *ngIf="isCreatingSubject" class="mb-6 p-4 border border-gray-300 rounded-xl bg-gray-50">
+  <h3 class="text-lg font-semibold mb-2">New Subject</h3>
+  <div class="flex flex-col md:flex-row md:items-end gap-4">
+    <input type="text" [(ngModel)]="newSubject.subjectName"
+           placeholder="Subject Name"
+           class="border rounded px-3 py-2 w-full md:w-1/3" />
+
+    <input type="number" [(ngModel)]="newSubject.presentCount"
+           placeholder="Present Count"
+           class="border rounded px-3 py-2 w-full md:w-1/6" />
+
+    <input type="number" [(ngModel)]="newSubject.absentCount"
+           placeholder="Absent Count"
+           class="border rounded px-3 py-2 w-full md:w-1/6" />
+
+    <button (click)="createSubject()"
+            class="bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded">
+      Create
+    </button>
+  </div>
+</div>
+
+
+<div class="grid gap-4">
+  <div *ngFor="let subject of subjects" class="p-4 bg-white rounded-2xl shadow-md">
+    
+    <!-- Subject Name Header with Edit/Delete -->
+    <div class="flex justify-between items-center mb-2">
+      <div *ngIf="editSubjectId !== subject.subjectId; else editMode" class="flex items-center gap-2">
+        <h2 class="text-xl font-semibold">{{ subject.subjectName }}</h2>
+        <button (click)="startEditing(subject)" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+      </div>
+
+      <ng-template #editMode>
+        <div class="flex items-center gap-2">
+          <input [(ngModel)]="editSubjectName" class="border rounded px-2 py-1" />
+          <button (click)="saveSubjectName(subject)" class="text-green-600 font-medium">Save</button>
+          <button (click)="cancelEditing()" class="text-gray-500">Cancel</button>
+        </div>
+      </ng-template>
+
+      <button
+        class="text-red-600 hover:text-red-800 font-bold text-lg"
+        (click)="deleteSubject(subject.subjectId!)">
+        ✖
+      </button>
+    </div>
+
+    <!-- Attendance Controls -->
+    <div class="flex items-center justify-between mb-2">
+      <div>
+        <span class="font-medium">Present:</span> {{ subject.presentCount }}
+        <button class="ml-2 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                (click)="incrementPresent(subject)">Add</button>
+      </div>
+
+      <div>
+        <span class="font-medium">Absent:</span> {{ subject.absentCount }}
+        <button class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                (click)="incrementAbsent(subject)">Add</button>
+      </div>
+    </div>
+
+    <!-- Attendance Percentage -->
+    <div>
+      <span class="font-medium">Attendance %:</span>
+      {{ getAttendancePercentage(subject.presentCount, subject.absentCount) | number: '1.0-2' }}%
+    </div>
+
+  </div>
+</div>
