@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SubjectsComponent } from '../subjects/subjects.component';
 
-
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-semesterpage',

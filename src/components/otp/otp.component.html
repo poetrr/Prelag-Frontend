@@ -1,22 +1,49 @@
-<form  (ngSubmit)="validateOtpFunction()" #otpForm="ngForm">
-    <label>Enter Otp sent to your email</label>
-    <input 
-        name="otp"
-        type="number"
-        required
-        [(ngModel)]="registerData.otp"
-        #userotp="ngModel"/>
-    <br/>
-        <div *ngIf="userotp.invalid && userotp.touched"
-             class="error">otp not entered
-        </div>
-
-        <button type="submit" [disabled]="userotp.invalid || resendEnabled ">Verify</button>
-        <div *ngIf="otpError" class="error">invalid otp</div>
-        <div *ngIf="serverError" class="error">unable to verify otp.Try after some time</div>
-        <div *ngIf="isTimerRunning">
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <form (ngSubmit)="validateOtpFunction()" #otpForm="ngForm"
+          class="bg-dark p-4 rounded-3 shadow col-11 col-sm-8 col-md-6 col-lg-4">
+      
+      <div class="mb-3 text-center">
+        <p class="text-light">Otp Validation</p>
+        <div class="px-2">
+          <label class="form-label text-light">Enter OTP sent to your email</label>
+          <input 
+            name="otp"
+            type="number"
+            class="form-control"
+            required
+            [(ngModel)]="registerData.otp"
+            #userotp="ngModel"
+            [class.is-invalid]="userotp.invalid && userotp.touched" />
+  
+          <div class="invalid-feedback" *ngIf="userotp.invalid && userotp.touched">
+            OTP is required
+          </div>
+  
+          <div class="text-danger mt-2" *ngIf="otpError">Invalid OTP</div>
+          <div class="text-danger mt-2" *ngIf="serverError">Unable to verify OTP. Try again later.</div>
+  
+          <div class="text-light mt-2" *ngIf="isTimerRunning">
             Please wait {{ timer }}s to resend
           </div>
-        <button type="button" (click)="resendOtpFunction()"  [disabled]="isTimerRunning">ResendOtp</button>
-        
-</form>
+        </div>
+      </div>
+  
+      <div class="px-2 d-flex justify-content-center">
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="userotp.invalid || resendEnabled">
+          Verify
+        </button> &nbsp;&nbsp;
+  
+        <button 
+          type="button" 
+          class="btn btn-outline-light"
+          (click)="resendOtpFunction()"  
+          [disabled]="isTimerRunning">
+          Resend OTP
+        </button>
+      </div>
+    </form>
+  </div>
+  

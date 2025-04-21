@@ -96,32 +96,42 @@ export class SubjectsComponent implements OnInit {
   }
   isCreatingSubject = false;
 
-
+  
 
 toggleCreateForm() {
   this.isCreatingSubject = !this.isCreatingSubject;
+
 }
 editSubjectId: number | null = null;
 editSubjectName: string = '';
 
-startEditing(subject: Subject) {
-  this.editSubjectId = subject.subjectId!;
-  this.editSubjectName = subject.subjectName;
+startEditing(subject) {
+  if (subject.subjectId != null) {
+    this.editModes.add(subject.subjectId);
+    this.editSubjectNames[subject.subjectId] = subject.subjectName;
+  }
 }
 
-cancelEditing() {
-  this.editSubjectId = null;
-  this.editSubjectName = '';
+cancelEditing(subject) {
+  if (subject.subjectId != null) {
+    this.editModes.delete(subject.subjectId);
+    delete this.editSubjectNames[subject.subjectId];
+  }
 }
+editModes: Set<number> = new Set(); // Keeps track of subjectIds in edit mode
+editSubjectNames: { [key: number]: string } = {}; // Temp name storage for each subject
 
 saveSubjectName(subject: Subject) {
-  if (!this.editSubjectName.trim()) return;
+  const subjectId = subject.subjectId;
+  if (subjectId == null || !this.editSubjectNames[subjectId]?.trim()) return;
 
-  this.subjectsService.updateSubjectName(subject.subjectId!, this.editSubjectName, this.semesterService.getSemesterId())
+  const newName = this.editSubjectNames[subjectId];
+  
+  this.subjectsService.updateSubjectName(subjectId, newName, this.semesterService.getSemesterId())
     .subscribe({
       next: () => {
-        subject.subjectName = this.editSubjectName;
-        this.cancelEditing();
+        subject.subjectName = newName;
+        this.cancelEditing(subject);
       },
       error: (err) => {
         console.error('Failed to update subject name:', err);

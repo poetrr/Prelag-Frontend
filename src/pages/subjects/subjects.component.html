@@ -1,81 +1,125 @@
 
-<!-- Create New Subject Button -->
-<div class="mb-4">
-  <button (click)="toggleCreateForm()"
-          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded">
-    {{ isCreatingSubject ? 'Cancel' : 'Create New Subject' }}
-  </button>
-</div>
 
-<!-- Create Subject Form -->
-<div *ngIf="isCreatingSubject" class="mb-6 p-4 border border-gray-300 rounded-xl bg-gray-50">
-  <h3 class="text-lg font-semibold mb-2">New Subject</h3>
-  <div class="flex flex-col md:flex-row md:items-end gap-4">
-    <input type="text" [(ngModel)]="newSubject.subjectName"
-           placeholder="Subject Name"
-           class="border rounded px-3 py-2 w-full md:w-1/3" />
+<div class="main-container">
 
-    <input type="number" [(ngModel)]="newSubject.presentCount"
-           placeholder="Present Count"
-           class="border rounded px-3 py-2 w-full md:w-1/6" />
-
-    <input type="number" [(ngModel)]="newSubject.absentCount"
-           placeholder="Absent Count"
-           class="border rounded px-3 py-2 w-full md:w-1/6" />
-
-    <button (click)="createSubject()"
-            class="bg-green-600 hover:bg-green-700 text-white font-medium px-4 py-2 rounded">
-      Create
+  <div class="mb-4">
+    <button (click)="toggleCreateForm()" *ngIf="!isCreatingSubject"
+            class="primary-button">
+      {{  'Create New Subject' }}
     </button>
   </div>
-</div>
+  
+  <!-- Create Subject Form -->
+  <div *ngIf="isCreatingSubject" class="" style="display:flex;gap:5px;flex-direction:column; width:70%;">
+    <h3 class="text-lg font-semibold mb-2">New Subject</h3>
+    <div class=""
+    style="display:flex;gap:5px;flex-direction:column; ">
+      <input type="text" [(ngModel)]="newSubject.subjectName"
+             placeholder="Subject Name"
+             class="border rounded px-3 py-2 w-full md:w-1/3" />
+  
+      <input type="number" [(ngModel)]="newSubject.presentCount"
+             placeholder="Present Count"
+             class="border rounded px-3 py-2 w-full md:w-1/6" />
+  
+      <input type="number" [(ngModel)]="newSubject.absentCount"
+             placeholder="Absent Count"
+             class="border rounded px-3 py-2 w-full md:w-1/6" />
+      <div style="display: flex; gap:5px;">
 
-
-<div class="grid gap-4">
-  <div *ngFor="let subject of subjects" class="p-4 bg-white rounded-2xl shadow-md">
-    
-    <!-- Subject Name Header with Edit/Delete -->
-    <div class="flex justify-between items-center mb-2">
-      <div *ngIf="editSubjectId !== subject.subjectId; else editMode" class="flex items-center gap-2">
-        <h2 class="text-xl font-semibold">{{ subject.subjectName }}</h2>
-        <button (click)="startEditing(subject)" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Edit</button>
+        <button (click)="createSubject()" class="primary-button">
+             Create
+        </button>
+        <button (click)="toggleCreateForm()" 
+            class="cancel-button">
+          {{  'Cancel' }}
+        </button>
       </div>
+      
 
-      <ng-template #editMode>
-        <div class="flex items-center gap-2">
-          <input [(ngModel)]="editSubjectName" class="border rounded px-2 py-1" />
-          <button (click)="saveSubjectName(subject)" class="text-green-600 font-medium">Save</button>
-          <button (click)="cancelEditing()" class="text-gray-500">Cancel</button>
-        </div>
-      </ng-template>
-
-      <button
-        class="text-red-600 hover:text-red-800 font-bold text-lg"
-        (click)="deleteSubject(subject.subjectId!)">
-        ✖
-      </button>
     </div>
-
-    <!-- Attendance Controls -->
-    <div class="flex items-center justify-between mb-2">
-      <div>
-        <span class="font-medium">Present:</span> {{ subject.presentCount }}
-        <button class="ml-2 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                (click)="incrementPresent(subject)">Add</button>
-      </div>
-
-      <div>
-        <span class="font-medium">Absent:</span> {{ subject.absentCount }}
-        <button class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                (click)="incrementAbsent(subject)">Add</button>
-      </div>
-    </div>
-
-    <!-- Attendance Percentage -->
-    <div>
-      <span class="font-medium">Attendance %:</span>
-      {{ getAttendancePercentage(subject.presentCount, subject.absentCount) | number: '1.0-2' }}%
-    </div>
-
   </div>
+  
+  
+  
+    <div *ngFor="let subject of subjects" class="" style="display:flex;gap:5px;flex-direction:column; width:70%; background-color: white;
+      padding:5px;border-radius: 5px;">
+      
+      <!-- Subject Name Header with Edit/Delete -->
+      <div class=""  >
+        <div *ngIf="editSubjectId !== subject.subjectId; " class="flex items-center gap-2">
+          <h2 class="text-xl font-semibold">{{ subject.subjectName }}</h2>
+
+
+          <div  style="display:flex;gap:5px;">
+
+            
+            <button (click)="startEditing(subject)" class="cancel-button" style="background-color: white;">
+                <svg class="feather feather-edit" fill="white" height="20px" stroke="#2ECC71" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+            <button (click)="deleteSubject(subject.subjectId!)" class="cancel-button" style="background-color: white;">
+              <svg height="18px" version="1.1" viewBox="0 0 14 18" width="14px" xmlns="http://www.w3.org/2000/svg" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink">
+                
+                      <g fill="none" fill-rule="evenodd" id="Page-1" stroke="none" stroke-width="1">
+                        <g fill="#A31545" id="Core" transform="translate(-299.000000, -129.000000)">
+                          <g id="delete" transform="translate(299.000000, 129.000000)">
+                            <path d="M1,16 C1,17.1 1.9,18 3,18 L11,18 C12.1,18 13,17.1 13,16 L13,4 L1,4 L1,16 L1,16 Z M14,1 L10.5,1 L9.5,0 L4.5,0 L3.5,1 L0,1 L0,3 L14,3 L14,1 L14,1 Z" id="Shape"/>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+        
+                  
+            </button>
+      
+      
+      
+          </div>
+          <div *ngIf="editModes.has(subject.subjectId!)" class="flex items-center gap-2">
+            <input [(ngModel)]="editSubjectNames[subject.subjectId!]" class="border rounded px-2 py-1" />
+            <div style="display:flex;gap:5px;">
+              <button (click)="saveSubjectName(subject)" class="primary-button">Save</button>
+              <button (click)="cancelEditing(subject)" class="cancel-button">Cancel</button>
+            </div>
+          </div>
+          
+        </div>
+  
+        
+      </div>
+  
+      <!-- Attendance Controls -->
+      <div class="flex items-center justify-between mb-2">
+        <div style="margin-bottom:10px;">
+          <span class="font-medium">Present:</span> {{ subject.presentCount }}
+          <button class="ml-2 px-2 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                  (click)="incrementPresent(subject)">
+                  
+                  <svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><g transform="translate(0 -1028.4)"><path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" fill="#27ae60" transform="translate(0 1029.4)"/><path d="m22 12c0 5.523-4.477 10-10 10-5.5228 0-10-4.477-10-10 0-5.5228 4.4772-10 10-10 5.523 0 10 4.4772 10 10z" fill="#2ecc71" transform="translate(0 1028.4)"/><path d="m6.0001 1042.4h4.9999v5h2v-5h5v-2h-5v-5h-2v5h-4.9999v2z" fill="#27ae60"/><path d="m6 1041.4h5v5h2v-5h5v-2h-5v-5h-2v5h-5v2z" fill="#ecf0f1"/></g></svg>
+          </button>
+        </div>
+  
+        <div>
+          <span class="font-medium">Absent:    </span> {{ subject.absentCount }}&nbsp;
+          <button class="ml-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                  (click)="incrementAbsent(subject)">
+                  
+                  
+                  <!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg fill="red" enable-background="new 0 0 512 512" height="20px" id="Layer_1" version="1.1" viewBox="0 0 512 512" width="22px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><g><path d="M256,0C114.625,0,0,114.625,0,256c0,141.391,114.625,256,256,256c141.391,0,256-114.609,256-256    C512,114.625,397.391,0,256,0z M256,448c-106.031,0-192-85.969-192-192S149.969,64,256,64c106.047,0,192,85.969,192,192    S362.047,448,256,448z M128,288h256v-64H128V288z"/></g></g></svg>
+          </button>
+        </div>
+      </div>
+  
+      <!-- Attendance Percentage -->
+      <div>
+        <span class="font-medium">Attendance %:</span>
+        {{ getAttendancePercentage(subject.presentCount, subject.absentCount) | number: '1.0-2' }}%
+      </div>
+  
+    </div>
+  
+  
+
+
+
 </div>

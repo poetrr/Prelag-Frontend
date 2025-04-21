@@ -4,12 +4,13 @@ import { faGraduationCap } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-bootstrap',
   standalone:true,
-  imports: [FontAwesomeModule,CommonModule,FormsModule],
+  imports: [FontAwesomeModule,CommonModule,FormsModule,RouterModule],
   templateUrl: './bootstrap.component.html',
   styleUrl: './bootstrap.component.css'
 })
